@@ -10,6 +10,7 @@
     "color": "^3.1.0",
     "react": "16.6.3",
     "react-native": "0.58.5",
+    "react-native-elements": "^1.1.0",
     "react-native-vector-icons": "^5.0.0",
     "react-navigation": "^2.18.3",
     "tcomb-form-native": "^0.6.20"
@@ -23,9 +24,9 @@
   },
   "rnpm": {
     "assets": [
-       "./src/assets/fonts"
+      "./src/assets/fonts"
     ]
- },
+  },
   "jest": {
     "preset": "react-native"
   }
