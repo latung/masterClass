@@ -4,21 +4,30 @@ import { StackNavigator } from 'react-navigation';
 // import LogIn from './LogIn';
 // import { Button } from 'react-native';
 import { Icon } from 'react-native-elements'
-
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 export default class trangchu extends Component {
+    static navigationOptions = {
+        tabBarIcon: ({tintColor})=>{
+            <Icon
+                name='settings'
+                color='#fff' size={20}/>
+        }
+        
+    }
     render() {
         return (
             <View style={styles.container}>
                 <View style={styles.headSignIn}>
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                        <Icon
-                            name='video-call'
-                            color='#fff' />
-                        <Text style={{color: '#fff'}}> Your Profile</Text>
+                        <Ionicons name="ios-contact" color='#fff' size={20} style={{paddingRight: 10}}/>
+                        <Text style={{color: '#fff', fontWeight: 'bold'}}> Your Profile</Text>
                     </View>
                     <Icon
                         name='settings'
-                        color='#fff' />
+                        color='#fff' size={20}/>
+                    
+                    {/* <ion-icon name="contact"></ion-icon> */}
                 </View>
                 
                 <View style={styles.bodySignIn}>
@@ -26,10 +35,11 @@ export default class trangchu extends Component {
                     <Text style={styles.headline}>Sign in to access your enrolled classes and account information.</Text>
                     <Text style={styles.headline}>By creating an account, you agree to our Terms of Service and Privacy Policy.</Text>
                     <TouchableOpacity style={styles.buttonLogInFB}>
+                        <Text style={{paddingRight: 8}}><Ionicons name="logo-facebook" color='#fff' size={20}/></Text>
                         <Text style={styles.TextButtonLogIn}> CONTINUE WITH FACEBOOK </Text>
                     </TouchableOpacity>
 
-                    <Text style={{ color: '#717171', padding: 10, fontSize: 11, fontWeight: 'bold' }}>OR</Text>
+                    <Text style={{ color: '#717171', padding: 9, fontSize: 11, fontWeight: 'bold' }}>OR</Text>
 
                     <TouchableOpacity style={styles.buttonLogInGG}>
                         <Text style={styles.TextButtonLogIn}> CREATE AN ACCOUNT </Text>
@@ -84,11 +94,13 @@ var styles = StyleSheet.create({
         marginBottom: 15,
     },
     buttonLogInFB: {
+        justifyContent: 'center',
+        flexDirection: 'row',
         width: '100%',
         borderRadius: 3,
         alignItems: 'center',
         backgroundColor: '#3b5998',
-        padding: 10
+        padding: 5,
     },
     TextButtonLogIn: {
         color: '#fff',
@@ -100,7 +112,7 @@ var styles = StyleSheet.create({
         borderRadius: 3,
         alignItems: 'center',
         backgroundColor: '#c83332',
-        padding: 10
+        padding: 9
 
     }
 });
