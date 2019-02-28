@@ -1,49 +1,6 @@
-// import React, { Component } from 'react';
-// import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
-// import { getFoodsFromServer } from '../../networking/Server.js' ;
-
-// export default class trangchu extends Component{
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//             isLoading: true,
-//             cloneMovies: []
-//         }
-//     }
-//     componentDidMount() {
-//         this.refreshDataFromServer();
-//     }
-//     refreshDataFromServer = () => {
-//         getFoodsFromServer().then((foods) => {
-//             this.setState({ cloneMovies: foods });
-//             console.log(this.state.cloneMovies);
-//         }).catch((error) => {
-//             console.log(error);
-//         });
-//     }
-//     render(){
-//         return (
-// <View style={{backgroundColor: 'red'}}>
-//     <View style={{paddingTop: 20, padding: 10}}>
-//         <Text style={{ fontSize: 13,color: '#fff', fontWeight: 'bold'}}>{this.state.cloneMovies.titel}</Text>
-//         <Text style={{ fontSize: 9,color: '#aaa9a9', fontWeight: 'bold'}} >11 CLASSE</Text>
-//         <View>
-//             <Text></Text>
-//             <View>
-//                 <Text style={{fontSize: 15, color: '#fff'}}>DEADMAU5</Text>
-//                 <Text style={{ fontSize: 9,color: '#aaa9a9', fontWeight: 'bold'}}>TEACHES ELECTRONIC MUSIC PRODUCTION</Text>
-//             </View>
-//         </View>
-//     </View>
-// </View>
-//         );
-//     }
-// }
-
 import React, { Component } from 'react';
-import { Text, Image, View, StyleSheet, ScrollView } from 'react-native';
+import { Text, ListView, View, StyleSheet, ScrollView, Image } from 'react-native';
 import { getFoodsFromServer } from '../../networking/Server.js'
-import ContentClass from './ContentClass.js';
 
 class ScrollViewExample extends Component {
     constructor(props) {
@@ -51,7 +8,10 @@ class ScrollViewExample extends Component {
         this.state = {
             isLoading: true,
             names: [],
-            content: []
+            content: [],
+            dataSource: new ListView.DataSource({
+                rowHasChanged: (row1, row2) => true
+            }),
         }
     }
     componentDidMount() {
@@ -71,23 +31,30 @@ class ScrollViewExample extends Component {
     render() {
         return (
             <View>
-                <ScrollView>
-                    {
-                        this.state.names.map((item, index) => (
-                            // <View key={item.id} style={styles.item}>
-                            //     <Text>{item.name}</Text>
-                            // </View>
-                            
-                            <View style={{ backgroundColor: '#000' }}>
-                                <View style={{ paddingTop: 20, padding: 10 }}>
-                                    <Text style={{ fontSize: 13, color: '#fff', fontWeight: 'bold' }}>{index}</Text>
-                                    <Text style={{ fontSize: 9, color: '#aaa9a9', fontWeight: 'bold' }} >{item.list[0].Name}</Text>
-                                    <ContentClass />
-                                </View>
+                {
+                    this.state.names.map((item, index) => (
+                        <View style={{ backgroundColor: '#000' }}>
+                            <View style={{ paddingBottom: 0, padding: 10, paddingTop: 15 }}>
+                                <Text style={{ fontSize: 15, color: '#fff', fontWeight: 'bold' }}>{item.titel}</Text>
+                                <Text style={{ fontSize: 11, color: '#aaa9a9', fontWeight: 'bold' }} >{item.class}</Text>
+                                {
+                                    item.list.map((sub, index) => (
+                                        <View style={{flexDirection: 'row', paddingTop: 5, paddingBottom: 5}}>
+                                            <Image
+                                                style={{ width: 50, height: 80 }}
+                                                source={{ uri: sub.url }}
+                                            />
+                                            <View style={{paddingLeft: 8}}>
+                                                <Text style={{ fontSize: 17, color: '#fff', fontWeight: 'bold' }}>{sub.Name}</Text>
+                                                <Text style={{ fontSize: 11, color: '#aaa9a9', fontWeight: 'bold' }}>{sub.Content}</Text>
+                                            </View>
+                                        </View>
+                                    ))
+                                }
                             </View>
-                        ))
-                    }
-                </ScrollView>
+                        </View>
+                    ))
+                }
             </View>
         )
     }
